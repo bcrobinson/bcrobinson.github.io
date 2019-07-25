@@ -434,7 +434,8 @@ let a: SimpledMappedType;
 <section data-markdown>
 <textarea data-template>
 
-### Pick Type
+### 
+    Type
 
 Create a new type that only certain keys
 
@@ -443,7 +444,8 @@ type Pick<T, K extends keyof T> = {
     [P in K]: T[P];
 };
 
-function pickKeys<T, K extends string>(item :T, ...keys: K[]): Pick<T, K>
+function pickKeys<T, K extends keyof T>
+    (item :T, ...keys: K[]): Pick<T, K>
 
 let onlyNameAndAge = pickKeys(dog, "name", "age");
 // let onlyName: {
@@ -499,9 +501,9 @@ function max<T>(items: T[], fieldOrFn) {
 }
 
 let dogs: Dog[];
-let maxAge1 = max(dogs, "age"); // OK
-let maxAge2 = max(dogs, "name"); // Error
-let maxAge3 = max(dogs, d => d.age); // OK
+let maxAge1 = max(dogs, d => d.age); // OK
+let maxAge2 = max(dogs, "age"); // OK
+let maxAge3 = max(dogs, "name"); // Error
 ```
 
 </textarea>
@@ -526,7 +528,7 @@ type AddHappyness<T> = {
 function addHappyness<T>(item: T): AddHappyNess<T>;
 
 let happyRobot = AddHappyness(robot);
-// happyRobot : {
+// let happyRobot : {
 //     serialNumber: string;
 //     manufacturer: {
 //         name: string,
